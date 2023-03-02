@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <title>
+            Choose Ur Game
+        </title>
+
+        <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
+    </head>
+
+
+<script>
+    var usern = document.getElementById("usern").value;
+    var passw = document.getElementById("passw").value;
+
+    function rederror(){
+        document.getElementById("usern").style.outline = "2px solid red";
+        document.getElementById("passw").style.outline = "2px solid red";
+        document.getElementById("error").style.color = "red"
+    }
+
+    function errorPage(){
+        window.location.href='https://ide-48dbe9d406504bfd9f0b738709f08348-8080.cs50.ws/course%20work/error_page.html'
+    }
+
+    function checklogin(){
+        var usern = document.getElementById("usern").value;
+        var passw = document.getElementById("passw").value;
+
+        if (usern.length == 0 && passw.length == 0)
+        { rederror()
+          document.getElementById("error").innerHTML = "Cannot be blank" }
+        else if (usern.length == 0 || passw.length == 0)
+        { rederror()
+          document.getElementById("error").innerHTML = "Both need to be filled" }
+        else
+        { document.getElementById("login").submit(); }
+    }
+
+
+    function reset(){
+        document.getElementById("usern").value = "";
+        document.getElementById("passw").value = "";
+    }
+
+
+</script>
+
+<style>
+
+    #title_text {color:blue; font-size:120px; text-shadow: 0px 0px 15px blue; font-family: 'Courier New', monospace;}
+    #subtitle_text {color:#ff21f8; font-size:60px; text-shadow: 0px 0px 5px #ff21f8; font-family: 'Brush Script MT', cursive}
+    #error {font-size:30px; font-family:Arial, sans-serif; font-weight:bold;}
+
+    #title_box {
+        margin:auto;
+        margin-top: 10px;
+        width: 70%;
+        height: 350px;
+    }
+
+    #login_box {
+        margin: auto;
+        width: 20%;
+        padding-bottom: 40px;
+        margin-top: 30px;
+        font-family: arial;
+    }
+
+
+    </style>
+
+
+
+
+
+    <body>
+        <div class="common_box" id="title_box">
+
+        <p>
+            <center id=title_text>
+                Choose Ur Game 🎮
+            </center>
+        </p>
+
+        <h3>
+            <center id=subtitle_text>
+                website for an easy game search
+            </center>
+        </h3>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+<div class="common_box" id="login_box">
+    <h1>
+        <center>
+         Please log in:
+        </center>
+    </h1>
+
+    <center>
+    <p>
+        Email or username:
+    </p>
+    <form id="login"  method="post" action="/logging_in" >
+        <input type='text' id=usern name=usern value='' size='30' />
+        <p>
+            Password:
+        </p>
+        <input type='password' id=pass name=pass value='' size='30' />
+        <br>
+        <br>
+        <button class="button_inAbox" onclick=checklogin() style="padding: 15px 32px;">Enter</button>
+        <input class="button_inAbox" style="padding: 15px 32px; margin-left:10px;" type="reset">
+    </form>
+    </center>
+
+
+    <center>
+    <p id=error></p>
+    </center>
+
+    <center>
+    <p>
+        Don't have an account yet?
+    </p>
+    <a href="/sign_up">
+       You can create it here.
+    </a>
+    </center>
+
+
+
+
+    </body>
+</div>
+
+</html>

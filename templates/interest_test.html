@@ -1,0 +1,181 @@
+<html>
+<head>
+    <title>Your interests 📄</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+</head>
+
+<style>
+
+
+
+
+
+#panel_genres {
+
+width: 78%;
+
+border: solid 4px black;
+margin-left: 164px;
+
+pointer-events: auto;
+border-radius: 20px;
+}
+
+#panel_tags {
+
+width: 78%;
+height: 500px;
+border: solid 4px black;
+margin-left: 164px;
+margin-top: 30px;
+
+pointer-events: auto;
+border-radius: 20px;
+}
+
+
+h2 {
+margin-left: 15px;
+}
+
+#checkboxes_genres {
+    width: 95%;
+    margin: auto;
+    padding-top: 24px;
+    list-style-type:none;
+    height: 180px;
+    column-count: 5;
+    column-gap: 10px;
+    font-size: 25px;
+}
+
+#checkboxes_tags {
+    width: 90%;
+    padding-top: 18px;
+    margin: auto;
+    height: 400px;
+    list-style-type:none;
+    column-count: 4;
+    column-gap: 5px;
+    font-size: 25px;
+
+
+}
+
+.checkbox_genre {
+    height: 25px;
+    width: 25px;
+}
+
+.checkbox_tag {
+    height: 25px;
+    width: 25px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+
+
+
+#submit_button {
+    display: block;
+    width:30%;
+    height:60px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+
+}
+
+</style>
+
+<body>
+
+    <div class=navArea>
+
+        <!--home-->
+            <a href="/">
+                <div class="home_button">HOME <br> 🎮 </div>
+            </a>
+        <!--home-->
+
+        <!--navigation bar-->
+        <ul id=nav class="common_box">
+            <li> <a href="/settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+            <li> <a href="/catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+            <li> <a href="/wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+            <li> <a href="/tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
+        </ul>
+        <!--navigation bar-->
+
+    </div>
+
+<form id="post_genres" method="post" action="/save_genres">
+<div id="panel_genres" class="common_box">
+
+    <h2>Select your favourite genres:</h2>
+
+        <ul id="checkboxes_genres">
+
+            {% for genre in genres %}
+
+                <li>
+                    <input type="checkbox" class="checkbox_genre" value="{{genre}}" name=genre id="{{genre}}">
+                    <label for="{{genre}}">{{genre}}</label>
+                </li>
+
+
+            {% endfor %}
+
+
+        </ul>
+
+
+        <!--either try to use text files for dynamic storage of strings, or database but each will have same number of genres they are interested in-->
+
+        <!--if small time left then leave only checkboxes on this page, do not include the game search-->
+
+
+</div>
+
+
+
+
+
+
+<div id="panel_tags" class="common_box">
+
+    <h2>Select your favourite tags:</h2>
+
+
+            <ul id="checkboxes_tags">
+
+                {% for tag in tags %}
+
+                    <li>
+                        <input type="checkbox" class="checkbox_tag" value="{{tag}}" name=tag>
+                        <label for="{{tag}}">{{tag}}</label>
+                    </li>
+
+
+                {% endfor %}
+
+
+            </ul>
+
+
+
+
+</div>
+
+<button type="submit" id="submit_button" class="button">
+    Submit
+</button>
+
+</form>
+
+</body>
+
+
+
+</html>

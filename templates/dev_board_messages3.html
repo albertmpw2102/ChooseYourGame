@@ -1,0 +1,30 @@
+<html>
+<head>
+
+    <title>dev_tool</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
+</head>
+
+<style>
+
+</style>
+
+<body>
+<h2>Messages:</h2>
+<form methods="post">
+
+    {% for x in range(messages|length) %}
+        <div class="message">
+            <p>'{{messages[x][1]}}' from&nbsp; {{messages[x][0]}}: {{messages[x][2]}}</p>
+            <input type="checkbox" class="resolve">
+        </div>
+    {% endfor %}
+
+</form>
+
+</body>
+
+
+
+</html>

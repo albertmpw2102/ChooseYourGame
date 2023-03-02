@@ -1,0 +1,199 @@
+<html>
+    <head>
+
+    <title>
+        Create an account!
+    </title>
+
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
+    <style>
+
+        #login_box {
+            width: 400px;
+            font-family: arial;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        #signup_form {
+            width: 250px;
+            margin: auto;
+            padding: 10px;
+        }
+
+
+
+        #error {
+            height: 30px;
+            margin-bottom: 20px;
+            font-size: 18px;
+
+        }
+
+        .field {
+            margin-bottom: 20px;
+
+        }
+
+
+
+
+
+
+
+
+    </style>
+
+
+            <script>
+
+    const fields = document.getElementsByClassName("field")
+
+
+
+    function rederror(){
+        for (const field of fields){
+            field.style = "outline: 2px solid red; box-shadow: 0px 0px 20px red;";
+        }
+
+        document.getElementById("error").style.color = "red"
+
+        }
+
+
+    function resetpage(){
+        for (const field of fields){
+            field.style = "outline: 0px solid red; ";
+        }
+
+        document.getElementById("error").innerHTML = ""
+
+        }
+
+
+
+
+
+    function checkreg(){
+
+        const usern = document.getElementById("usern")
+        const passw = document.getElementById("pass")
+        const mail = document.getElementById("mail")
+        const name = document.getElementById("name")
+        const conf = document.getElementById("conf")
+        const error = document.getElementById("error")
+
+
+        if (usern.value.length == 0 || passw.value.length == 0 || mail.value.length == 0 || name.value.length == 0 )
+        { rederror()
+            error.innerHTML = "Cannot be blank" }
+
+        else if (mail.value.indexOf("@") < 1)
+        { resetpage()
+            mail.style = "outline: 2px solid red; box-shadow: 0px 0px 10px red;";
+            error.innerHTML = "Please enter a proper email"}
+
+        else if (mail.value.includes(".") == false)
+        { resetpage()
+            mail.style = "outline: 2px solid red; box-shadow: 0px 0px 10px red;";
+            error.innerHTML = "Please enter a proper email"}
+
+        else if (conf.value != passw.value)
+        {
+            resetpage()
+            passw.style.outline = "2px solid red";
+            conf.style.outline = "2px solid red";
+            error.innerHTML = "Passwords don't match"
+
+        }
+
+        else
+        { document.getElementById("signup_form").submit(); }
+    //using .submit function in if statement, so the function checks everything and only then submits
+    }
+
+
+
+
+
+
+
+
+            </script>
+
+    </head>
+
+
+
+    <body>
+
+        <div class="common_box" id="title_box">
+
+            <p>
+                <center id=title_text>
+                    Choose Ur Game 🎮
+                </center>
+            </p>
+
+            <h3>
+                <center id=subtitle_text>
+                    website for an easy game search
+                </center>
+            </h3>
+
+        </div>
+
+
+        <div id=login_box class="common_box">
+
+
+
+                <p style="font-size: 25px; font-weight: bold; text-align: center;">
+
+                Please enter your details:
+
+                </p>
+
+
+                <form id=signup_form method="post" action="/add_account">
+
+                        Username: <br>
+                        <input type='text' class="field" id=usern name=usern value='' size='30' />
+                        <br>
+
+                        Your name: <br>
+                        <input type='text' class="field"  id=name name=name value='' size='30' />
+                        <br>
+
+                        Your email: <br>
+                        <input type='text' class="field" id=mail name=mail value='' size='30' />
+                        <br>
+
+                        Your password: <br>
+                        <input type='password' class="field" id=pass name=pass value='' size='30' />
+                        <br>
+
+                        Confirm password: <br>
+                        <input type='password' class="field" id=conf name=conf value='' size='30' />
+
+                        <div id="error"></div>
+
+                        <input type="button" style="padding: 15px 32px;" class="button_inAbox" onclick="checkreg()" value="Submit">
+                        <button type="reset" style="padding: 15px 32px;" class="button_inAbox" onclick="resetpage()">Reset</button>
+                </form>
+
+
+
+
+        </div>
+
+
+
+
+
+    </body>
+
+
+
+</html>

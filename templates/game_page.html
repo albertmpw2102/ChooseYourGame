@@ -1,0 +1,423 @@
+<html>
+<head>
+
+    <title>{{game.title}}</title>
+
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
+<style>
+
+#left_side {
+    height:900px;
+    width: 750px;
+    margin-left:150px;
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+
+
+#right_side {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    width: 700px;
+    height: 900px;
+    left: 20px;
+}
+
+#image_selection {
+    text-align: center;
+    margin-top:10px;
+    width:750px;
+}
+
+
+
+.screenshot_image {
+    position: relative;
+    border-radius: 15px;
+    height: 82.5px;
+    width: 146.5px;
+    z-index: -1;
+
+}
+#big_image {
+    width:750px;
+    height:422px;
+}
+
+.overlay {
+    position: relative;
+    display: inline-block;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: background-color 0.4s;
+
+}
+
+.overlay:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.4s;
+}
+
+#add_to_wishlist{
+    display: block;
+    margin: auto;
+    margin-top: 100px;
+    padding: 40px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#title_panel {
+    position: absolute;
+    font-size: 40px;
+    text-align: center;
+    width: 100%;
+    padding: 20px 0px 20px 0px;
+    top: 4px;
+
+}
+
+
+
+#description {
+    position: absolute;
+    top: 140px;
+    width: 100%;
+
+
+}
+
+#small_description {
+    width: 95%;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+#other_info li {
+    margin-bottom: 20px;
+
+}
+
+#score_table {
+    border-collapse: collapse;
+    width: 94%;
+
+}
+
+#score_table td, #score_table th {
+    border: 1px solid white;
+    padding: 8px;
+    text-align: center;
+
+}
+
+#score_table td {
+    font-size: 30px;
+}
+
+
+
+
+
+
+#tags_table {
+    border-collapse: collapse;
+
+}
+
+#tags_table th {
+    padding-right: 50px;
+}
+
+
+
+
+#genres_table {
+    border-collapse: collapse;
+
+}
+
+#genres_table th {
+    padding-right: 32px;
+}
+
+
+
+
+
+#dates_table {
+    border-collapse: collapse;
+
+}
+
+#dates_table th, #dates_table td{
+    padding: 10px;
+}
+
+
+
+
+
+
+
+.tag {
+    background-color: #111111;
+    border: 2px solid black;
+    border-radius: 5px;
+
+    color: white;
+
+    text-align: center;
+    padding: 2px 3px 2px 3px;
+    margin-right: 10px;
+    margin-bottom: 2px;
+
+    display: inline-block;
+    font-size: 16px;
+
+}
+
+</style>
+
+<script>
+    function image_select(id){
+
+        const other_overlays = document.getElementsByClassName("overlay");
+        // creates an array of overlays (div tags) that are present on the page
+
+        var selected_overlay = document.getElementById(id);
+        // use the id that input as a parameter to find the div tag that was clicked on
+        // store it as a seperate variable
+
+        var selected_image = document.getElementById(id).firstElementChild;
+        // get the <img> tag that is inside the div tag that was clicked on
+
+        var big_image = document.getElementById("big_image");
+        // the big img tag that shows screenshots in big size
+
+        big_image.src = selected_image.src;
+        // matches the sources of selected img tag and the source of big img tag
+        // thus making the selected image be displayed in the big img tag
+
+        for (let i = 0; i < other_overlays.length; i++) {
+            if (other_overlays[i] == selected_overlay){
+                // if this div tag is the selected div tag, remove its opacity, leaving only the image visible
+                selected_overlay.style = "background-color: rgba(0, 0, 0, 0.0);"
+            }
+
+            else {
+                other_overlays[i].style = ""
+                // else make every other div tag have normal css settings that are specified above
+            }
+
+        }
+
+    }
+
+    function screenshot_load(){
+        var selected_image = document.getElementById("1").firstElementChild;
+        var big_image = document.getElementById("big_image")
+
+        big_image.src = selected_image.src
+    }
+
+
+
+</script>
+
+</head>
+
+<body onload="screenshot_load()">
+
+
+
+<div id="left_side">
+
+    <img id="big_image" src="" width=750px height=700px; style="vertical-align: baseline;">
+
+    <div id="image_selection">
+
+        {% for screenshot in game.screenshots %}
+
+
+
+            <div id="{{loop.index}}" class="overlay" style="width:146.5px; height:82.5px;" onclick="image_select(this.id)">
+
+                <img src="{{screenshot}}" class=screenshot_image>
+
+            </div>
+
+
+
+        {% endfor %}
+
+    </div>
+{% if added == true %}
+
+<button id="add_to_wishlist" class="button" name="game_added" value="{{game.id}}" style="pointer-events: none;">Added ✅</button>
+
+{% else %}
+
+<form action="/game/add_to_wishlist" method="post">
+
+    <button id="add_to_wishlist" class="button" name="game_added" value="{{game.id}}">Add to wishlist</button>
+
+</form>
+
+{% endif %}
+
+</div>
+
+
+
+<div id="right_side">
+
+    <div id="title_panel" class="common_box">
+
+        {{game.title}}
+
+    </div>
+
+    <div id="description" class="common_box">
+
+        <div id="small_description">
+
+            <div style="font-size:25px;">Description:</div>
+            <br>
+            {{game.description|safe}}
+
+        </div>
+
+        <div id="other_info">
+            <ul style="list-style-type: none; ">
+
+                <li> <table id="score_table">
+                     <tr>
+                        <th>Metacritic score</th>
+                        <th>General rating</th>
+                     </tr>
+                     <tr>
+                        <td>{{game.m_score}}/100</td>
+                        <td>{{game.g_score}}/5</td>
+                     </tr>
+                     </table>
+                </li>
+
+                <li>
+                    <table id="tags_table">
+                        <tr>
+                            <th>Tags:</th>
+                            <td>
+                                {% for tag in game.tags %}
+                                <div class="tag">{{tag}}</div>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+
+                <li><hr></li>
+
+                <li>
+                    <table id="genres_table">
+                        <tr>
+                            <th>Genres:</th>
+                            <td>
+                                {% for genre in game.genres %}
+                                    <div class="tag">{{genre}}</div>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+
+                <li><hr></li>
+
+                <li> <table id="dates_table">
+                        <tr>
+                            <th>Release date:</th>
+                            <td>{{game.r_date}}</td>
+                        </tr>
+                        <tr>
+                            <th>Last updated:</th>
+                            <td>{{game.l_date}}</td>
+                        </tr>
+                     </table>
+
+                </li>
+
+            </ul>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class=navArea>
+
+    <!--home-->
+    <a href="/">
+        <div class="home_button">HOME <br> 🎮 </div>
+    </a>
+    <!--home-->
+
+    <!--navigation bar-->
+    <ul id=nav class="common_box">
+        <li> <a href="settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+        <li> <a href="catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+        <li> <a href="wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+        <li> <a href="tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
+    </ul>
+    <!--navigation bar-->
+
+</div>
+
+
+
+
+</body>
+
+</html>

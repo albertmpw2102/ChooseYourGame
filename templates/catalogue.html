@@ -1,0 +1,105 @@
+<head>
+    <title>Catalogue</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+</head>
+
+<style>
+
+
+#searchArea{
+    width:600px;
+    margin-left:200px;
+    pointer-events: auto;
+    display:inline-block;
+}
+
+#search {
+font-size: 30px;
+height:50px;
+width: 500px;
+margin:0px;
+display:inline-block;
+
+
+}
+
+#button{
+    position:absolute;
+    border:1px solid purple;
+    height: 48px;
+    width: 50px;
+    display:inline-block;
+    margin-left: 10px;
+    border-radius:2px;
+
+}
+
+#title {
+    position: absolute;
+    left:1200px;
+    margin-top:8px;
+    font-size:30px;
+    font-family:arial;
+    font-weight:bold;
+}
+
+
+
+
+
+</style>
+
+<script>
+
+
+
+</script>
+
+
+<body>
+
+<div class=navArea>
+
+<!--home-->
+<a href="/">
+    <div class="home_button">HOME <br> 🎮 </div>
+</a>
+<!--home-->
+
+<!--navigation bar-->
+<ul id=nav class="common_box">
+    <li> <a href="/settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+    <li> <a href="/catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+    <li> <a href="/wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+    <li> <a href="/tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
+</ul>
+<!--navigation bar-->
+
+</div>
+
+<div id=title class="pageName">CATALOGUE</div>
+    <div id=searchArea>
+        <form method="get" action="/catalogue/search">
+         <input id=search name="name" style="border-color: #7300d1; border-radius:2px;" class="interactive_box" type=text placeholder="Enter your game's title for the search">
+            <button type="submit" id=button class="button"> <img src="/static/images/search.png" width="30px" height="30px" > </button>
+        </form>
+    </div>
+
+
+    <div class=gameArea style="margin-top: 5px;">
+
+
+        {% for game in games %}
+
+            <a href="/game?index={{loop.index0}}" style="text-decoration:none;"> <div class=game> <img class="cover_image" src="{{game.image}}"> <div class="game_name"> {{game.title}} </div> </div> </a>
+
+        {% endfor %}
+
+
+
+    </div>
+
+
+
+
+</body>

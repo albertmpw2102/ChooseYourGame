@@ -1,0 +1,289 @@
+<head>
+    <title>Settings⚙️</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+</head>
+
+
+<style>
+
+
+#pageArea {
+pointer-events: none;
+position: fixed;
+top: 10;
+width: 99%;
+height: 98%;
+}
+
+#settArea {
+    margin-right:auto;
+    margin-left:auto;
+    margin-top: 80px;
+    border: 4px solid black;
+    border-radius: 80px;
+    width: 50%;
+    height: 620px;
+
+
+
+
+}
+
+#optArea {
+    padding-left: 70px;
+    padding-top: 70px;
+    font-size: 18px;
+    font-family: arial;
+
+}
+
+
+#fontSize {
+    width: 45px;
+}
+
+#title {
+    padding-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 250px;
+    text-align: center;
+    font-size: 40px;
+    font-family:arial;
+    font-weight:bold;
+
+
+}
+
+#selected{
+    height: 50px;
+    width: 100px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 9px;
+
+}
+
+.theme{
+    height: 50px;
+    width: 100px;
+    display: none;
+    background: white;
+    border: 1px solid black;
+    border-radius: 9px;
+
+
+
+}
+
+#selected:hover + #themes .theme{
+    display: block;
+}
+
+#themes:hover .theme{
+    display: block;
+}
+
+
+.theme_icon{
+
+height: 93%;
+width: 93%;
+display: block;
+margin: auto;
+margin-top:2px;
+
+}
+
+#saveSettings{
+
+height: 50px;
+width: 100px;
+font-size: 25px;
+position:absolute;
+bottom: 200;
+
+
+}
+
+#signout_button{
+    position: absolute;
+    vertical-align: top;
+    right: 520;
+    bottom: 190;
+
+    padding: 10px;
+
+}
+
+
+
+
+
+</style>
+
+
+<script>
+//function fontChange() {
+
+  //  var fontInput = document.getElementById("fontSize").value;
+
+  //  fontInput = Math.floor(fontInput);
+
+  //  var fontelement = document.getElementById("");
+
+  //  var fontsize = window.getComputedStyle(fontelement, null).fontSize;
+
+  //   fontchange = fontInput - parseInt(fontsize, 10);
+
+  //  var fontInt = parseInt(fontsize, 10) + fontchange + "px";
+
+  //  var fontString = fontInt.toString();
+
+  //  fontelement.style.fontSize = fontString;
+
+
+    //make a seperate function for each element with font size to be changed (this function will be used in for loop)
+
+    //when databases are implemented = save "fontchange" to a database of user and use this value in other page. e.g (array of fontsizes on a page) + (fontChange that is taken from the database)
+
+//}
+
+
+function setAttributes(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+}
+
+
+function Set() {
+
+    var theme1 = "/static/images/themes icons/1.jpeg";
+    var theme2 = "/static/images/themes icons/2.jpeg";
+    var theme3 = "/static/images/themes icons/3.jpeg";
+
+    theme = {{ theme | tojson }};
+    fontsize = {{ fontsize | tojson }};
+
+    document.getElementById("fontSize").value = fontsize;
+
+    var img1 = document.getElementById("1");
+    var img2 = document.getElementById("2");
+    var img3 = document.getElementById("3");
+
+    var a2 = document.getElementById('a2');
+    var a3 = document.getElementById('a3');
+
+    if (theme == '1') {
+        img1.src = theme1;
+        img2.src = theme2;
+        img3.src = theme3;
+
+        a2.href = '/settings/savetheme?theme=2'
+        a3.href = '/settings/savetheme?theme=3'
+
+
+
+   }
+    else if (theme == '2') {
+        img1.src = theme2;
+        img2.src = theme1;
+        img3.src = theme3;
+
+        a2.href = '/settings/savetheme?theme=1'
+        a3.href = '/settings/savetheme?theme=3'
+
+    }
+    else {
+       img1.src = theme3;
+       img2.src = theme1;
+       img3.src = theme2;
+
+       a2.href = '/settings/savetheme?theme=1'
+        a3.href = '/settings/savetheme?theme=2'
+   }
+
+
+}
+
+
+</script>
+
+<body onload="Set()">
+
+
+
+    <div id=title name=text class="pageName"> SETTINGS </div>
+
+<div id=settArea class="common_box">
+
+    <div id=optArea name=text>
+
+        <a href="interest_test" class="button_inAbox" style="text-decoration: none; padding: 5px;">Interest test</a>
+
+            <form name="save" method="post" action="/settings/save-settings">
+
+                <br>
+                <br>
+
+                <label>Font-size:</label>
+                <input type=number name="fontSize" id=fontSize min=15 max=30>
+
+                <br>
+                <br>
+
+                <label>Choose a theme: </label>
+
+                <div id=Dropdown>
+
+                <div id="selected"><img id="1" class="theme_icon" src=""></div>
+
+                <div id="themes">
+
+                <div class="theme"><a id="a2"><img id="2" class="theme_icon" src=""></a></div>
+                <div class="theme"><a id="a3"><img id="3" class="theme_icon" src=""></a></div>
+
+                </div>
+                </div>
+
+                <input type="submit" class="button_inAbox" id="saveSettings" value="SAVE">
+
+                <a href="/sign_out" class="button_inAbox" id="signout_button">Sign out</a>
+
+            </form>
+
+        </div>
+
+</div>
+
+
+
+
+    <div id=pageArea>
+
+        <!--home-->
+        <a href="/">
+            <div class="home_button">HOME <br> 🎮 </div>
+        </a>
+        <!--home-->
+
+        <!--navigation bar-->
+        <ul id=nav class="common_box">
+            <li> <a href="/settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+            <li> <a href="/catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+            <li> <a href="/wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+            <li> <a href="/tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
+        </ul>
+        <!--navigation bar-->
+
+    </div>
+
+
+
+
+
+
+
+</body>
+

@@ -1,0 +1,247 @@
+body {
+    background-color: #111111;
+    color: white;
+}
+
+
+
+#title_text {color:blue; font-size:120px; text-shadow: 0px 0px 15px blue; font-family: 'Courier New', monospace;}
+#subtitle_text {color:#ff21f8; font-size:60px; text-shadow: 0px 0px 5px #ff21f8; font-family: 'Brush Script MT', cursive}
+#error {font-size:30px; font-family:Arial, sans-serif; font-weight:bold;}
+
+#title_box {
+    margin:auto;
+    margin-top: 10px;
+    width: 70%;
+    height: 350px;
+}
+
+
+
+
+
+
+.common_box {
+    border: 3px solid black;
+    border-radius: 30px;
+    box-shadow: 0px 0px 15px white;
+    background-color: #1d1d1d;
+}
+
+.button_inAbox {
+    background-color: #111111;
+    border: 2px solid black;
+    border-radius: 5px;
+
+    color: white;
+
+    text-align: center;
+
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button {
+    background-color: #1d1d1d;
+    border: 2px solid black;
+    border-radius: 5px;
+
+    color: white;
+
+    text-align: center;
+
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button_inAbox:hover, .button:hover {
+    background-color: #8300aa;
+    border-color: #ff21f8;
+    cursor: pointer;
+
+}
+
+.button_inAbox:active, .button:active {
+    background-color: #0a0097;
+    border-color: blue;
+}
+
+.pageName {
+    text-shadow: 0px 0px 5px white;
+}
+
+.interactive_box_inAbox {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #111111;
+    color: white;
+    outline: none;
+}
+
+.interactive_box {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #1d1d1d;
+    color: white;
+    outline: none;
+}
+
+
+/*home*/
+
+.home_button {
+    border: 3px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px white;
+    background-color: #1d1d1d;
+
+    text-align: center;
+    font-size: 60px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+
+    pointer-events: auto;
+    float: right;
+    width: 180px;
+    color:#7300d1;
+
+}
+
+
+.home_button:hover {
+background-color:white;
+box-shadow: 0px 0px 100px white;
+
+
+}
+.home_button:active {
+    background-color:#7300d1;
+    box-shadow: 0px 0px 100px #7300d1;
+    color: white;
+}
+/*home*/
+
+/*navigation bar*/
+#nav {
+    pointer-events: auto;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 5px;
+  width: 6%;
+}
+
+.navIcons {
+    height: 100px
+}
+
+.navigat {
+
+    text-align: center;
+    padding-bottom: 46px;
+    padding-top: 46px;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: white;
+
+}
+
+.navigat:hover{
+    background-color:#7300d1;
+    box-shadow: 0px 0px 100px #7300d1;
+}
+/*navigation bar*/
+.navArea {
+    pointer-events: none;
+    position: fixed;
+    top: 10;
+    width: 99%;
+    height: 98%;
+    }
+
+.gameArea {
+    margin-left: 150px;
+    width: 1484px;
+    height: 850px;
+}
+
+.game {
+
+    pointer-events: auto;
+    border: 2px solid #0d0087;
+    background: #050033;
+    border-radius: 12px;
+    width: 160px;
+    height: 260px;
+    margin: 9px;
+    display: inline-block;
+    position:relative;
+    cursor: pointer;
+
+}
+
+.game:hover {
+     border: 2px solid #ff21f8;
+     background-color: #420940;
+}
+.game:active {
+    border: 2px solid blue;
+    background-color: #0d0087;
+}
+
+.game:hover .game_name{
+     background-color: #420940;
+}
+.game:active .game_name{
+    background-color: #0d0087;
+}
+
+
+
+
+
+.cover_image {
+
+    width: 140px;
+    height: 240px;
+    object-fit:cover;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+
+}
+
+.game_name {
+    position:absolute;
+    border-radius: 20px;
+    bottom: 2px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    width: 99.9%;
+    text-align: center;
+    z-index: 100;
+    background-color: #111111;
+    font-size: 15px;
+    color: white;
+    background: #050033;
+
+
+}
+
+.check {
+    float: right;
+    margin-top: 227px;
+    width:30px;
+    height:30px;
+
+}
+
+.cover {
+    pointer-events: auto;
+    width: 160px;
+    height: 260px;
+    opacity: 0;
+}
+.cover:hover {
+    opacity: 0.3;
+    transition: opacity 0.4s;
+}

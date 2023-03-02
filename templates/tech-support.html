@@ -1,0 +1,109 @@
+<head>
+    <title>Support💻</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
+</head>
+
+    <style>
+
+
+
+
+    #report {
+    margin: auto;
+    width: 35%;
+
+    padding-right: 100px;
+    padding-left: 100px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border:solid 4px black;
+    margin-top: 100px;
+
+    color: white;
+
+    pointer-events: auto;
+
+    border-radius: 80px;
+    }
+
+    #labl, #sel {
+        font-size: 24px;
+        font-family:arial;
+    }
+
+    #text {width: 650px;
+    top: 400px;
+        font-size: 20px
+
+    }
+
+    #text {
+        resize: none;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+
+
+    #divsub{margin:auto;
+        width: 50%;
+    }
+
+    </style>
+
+
+    <body>
+    <div class=navArea>
+
+            <!--home-->
+                <a href="/">
+                    <div class="home_button">HOME <br> 🎮 </div>
+                </a>
+            <!--home-->
+
+            <!--navigation bar-->
+            <ul id=nav class="common_box">
+                <li> <a href="/settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+                <li> <a href="/catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+                <li> <a href="/wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+                <li> <a href="/tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
+            </ul>
+            <!--navigation bar-->
+
+    </div>
+
+    {% if session['user'] %}
+        {% if match != 1 %}
+        <form id="report" method="post" action="/tech-support" class="common_box">
+            <label id="labl" for=reas>What is your concern?</label>
+            <select id="sel" name="reason" id="reas">
+                <option>Bug report</option>
+                <option>Suggestion</option>
+                <option>Inconvinience</option>
+            </select>
+            <br>
+            <br>
+            <textarea rows="20" cols="63" id="text" name="text" class="interactive_box_inAbox"></textarea>
+            <br>
+            <br>
+            <div id=divsub>
+            <input style="width: 100%; font-size: 40px; height:70px;" type=submit class="button_inAbox">
+            </div>
+        </form>
+        {% else %}
+        <form id="report" method="post" action="/tech-support" class="common_box">
+        <label id="labl" for=reas>Thank you for the message! <br> Please wait until it is reviewed before sending another one.</label>
+        </form>
+        {% endif %}
+    {% else %}
+
+        <div id="report" class="common_box">
+            <div style="font-size: 30px;">Please log in or sign up to send a message</div>
+        </div>
+
+    {% endif %}
+
+
+
+
+    </body>

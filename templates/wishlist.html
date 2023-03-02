@@ -1,0 +1,178 @@
+<head>
+
+    <title>Wishlist📓</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
+</head>
+
+<script>
+function selection(id){
+    var checkbox = document.getElementById(id);
+    var game_name = document.getElementById("name_for_" + id);
+    if (checkbox.checked){
+        checkbox.parentNode.style = "box-shadow: 0px 0px 60px #7300d1; border: 2px solid #ff21f8; background-color: #420940;";
+        game_name.style = "background-color: #420940;";
+    }
+    else {
+        checkbox.parentNode.style = null;
+        game_name.style = null;
+    }
+}
+
+
+function selection3(){
+
+    var boxes = document.getElementsByClassName('check');
+
+    for(var i=0; boxes[i]; i++){
+    if(boxes[i].checked){
+        boxes[i].parentNode
+
+    }
+    else {
+        boxes[i].parentNode.style.opacity = null;
+    }
+    }
+
+}
+
+function test(){
+
+var boxes = document.getElementsByClassName('check');
+
+for(var i=0; boxes[i]; i++){
+if(boxes[i].checked){
+    boxes[i].parentNode.style.opacity = "0.9";
+
+}
+else {
+    boxes[i].parentNode.style.opacity = null;
+}
+}
+
+}
+
+function DelFromWishlist(){
+    document.getElementById('games_to_delete').submit()
+}
+</script>
+
+<style>
+
+.gameArea {
+    margin-top: 37px;
+}
+
+.game:hover {
+    background: #050033;
+    border: 2px solid #0d0087;
+    box-shadow: 0px 0px 20px #7300d1;
+}
+.game:active {
+    background: #050033;
+    border: 2px solid #0d0087;
+}
+.game:hover .game_name{
+    background: #050033;
+}
+.game:active .game_name{
+    background: #050033;
+}
+
+
+
+
+
+#save {
+    pointer-events: auto;
+    position: absolute;
+    right: 5;
+    bottom: 20;
+    width: 180px;
+    height: 80px;
+}
+
+
+#title {
+    position: relative;
+    left:785px;
+    margin-top:8px;
+    font-size:30px;
+    font-family: arial;
+    font-weight:bold;
+}
+
+.check{
+    border: 1px solid red;
+    position:absolute;
+    height: 260px;
+    width: 160px;
+    opacity:0;
+    right:0;
+    bottom:0;
+    cursor: pointer;
+
+}
+
+
+
+
+
+</style>
+
+
+<body>
+
+    <div class=navArea>
+
+        <button id=save class="button" onclick="DelFromWishlist()">DELETE</button>
+        <!--home-->
+        <a href="/">
+            <div class="home_button">HOME <br> 🎮 </div>
+        </a>
+        <!--home-->
+
+        <!--navigation bar-->
+        <ul id=nav class="common_box">
+            <li> <a href="settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+            <li> <a href="catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+            <li> <a href="wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+            <li> <a href="tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
+        </ul>
+        <!--navigation bar-->
+
+
+    </div>
+
+        <div id=title class="pageName"> YOUR WISHLIST </div>
+
+
+
+    <div class=gameArea>
+        <form id="games_to_delete" method="post" action="/wishlist/delete_from_wishlist">
+
+    {% for game in games %}
+
+       <div class=game> <img class="cover_image" src="{{game.image}}"> <div id="name_for_{{loop.index}}" class="game_name"> {{game.title}} </div> <input id="{{loop.index}}" class=check type=checkbox name="wishlist_games" value="{{game.id}}" onclick="selection(this.id)"> </div>
+
+    {% endfor %}
+
+        </form>
+    </div>
+
+
+
+    <div id=pagesArea>
+
+        <a href="#"><div class="pag" ></div></a>
+
+        <a href="#"><div class="pag" ></div></a>
+
+        <a href="#"><div class="pag" ></div></a>
+
+    </div>
+
+
+
+
+</body>

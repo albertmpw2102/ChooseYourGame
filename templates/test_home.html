@@ -1,0 +1,51 @@
+<head>
+
+    <title>Home🎮</title>
+
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
+</head>
+
+<body>
+
+    <div class=navArea>
+
+        <!--home-->
+        <a href="/home">
+            <div class="home_button">HOME <br> 🎮 </div>
+        </a>
+        <!--home-->
+
+        <!--navigation bar-->
+        <ul id=nav class="common_box">
+            <li> <a href="settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+            <li> <a href="catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+            <li> <a href="wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+            <li> <a href="tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
+        </ul>
+        <!--navigation bar-->
+
+    </div>
+
+
+
+
+
+    <div class=gameArea style="margin-top: 5px;">
+
+
+        {% for game in games %}
+
+            <div class=game> <img class="cover_image" src="{{game.image}}"> <div class="game_name"> {{game.title}} </div> </div>
+
+        {% endfor %}
+
+
+
+    </div>
+
+
+
+
+
+</body>

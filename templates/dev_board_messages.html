@@ -1,0 +1,227 @@
+<html>
+<head>
+
+    <title>users_feedback</title>
+
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
+<style>
+body {
+ text-align: center;
+}
+
+#title {
+    padding-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 100px;
+    text-align: center;
+    font-size: 40px;
+    font-family:arial;
+    font-weight:bold;
+
+
+}
+
+.messages_list {
+    list-style-type: none;
+    padding:0px;
+}
+
+.list_div {
+    display: inline-block;
+    vertical-align:top;
+    width:450px;
+    margin: 0px 25px 0px 25px;
+
+}
+
+.list_title {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 50px;
+
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 0px;
+    text-align: left;
+}
+
+.username {
+    font-weight:bold;
+    display: inline-block;
+    width: 25%;
+    vertical-align:top;
+
+}
+
+.msg_text {
+    display: inline-block;
+    width: 66%;
+    text-align: left;
+    vertical-align:top;
+}
+
+.checkbox_zone {
+    display: inline-block;
+    width:25px;
+    vertical-align:top;
+
+}
+
+
+
+
+
+
+#resolve_submit {
+pointer-events: auto;
+position: absolute;
+padding: 15px;
+width: 150px;
+right: 0;
+bottom: 20px;
+
+
+}
+
+
+#Bugreport{
+
+}
+
+
+
+</style>
+
+
+<script>
+    function submit_form(){
+        document.getElementById("messages_form").submit();
+    }
+</script>
+
+</head>
+
+<body>
+
+<div class=navArea>
+
+
+
+    <!--home-->
+    <a href="/">
+        <div class="home_button">HOME <br> 🎮 </div>
+    </a>
+    <!--home-->
+
+    <!--navigation bar-->
+    <ul id=nav class="common_box">
+        <li> <a href="settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+        <li> <a href="catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+        <li> <a href="wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+        <li> <a href="tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
+    </ul>
+    <!--navigation bar-->
+
+    <button id="resolve_submit" class="button" onclick="submit_form()">Resolve</button>
+
+
+</div>
+
+<div id=title name=text class="pageName"> MESSAGES FROM USERS </div>
+
+<form id="messages_form" method="post">
+
+    <div class="list_div" id="Bugreports">
+
+        <div class="list_title">Bug reports</div>
+
+        <ul class="messages_list">
+
+        {% for bug_report in bug_reports %}
+            <li class="common_box message">
+
+                <div class="username">{{bug_report[0]}}:</div>
+
+                <div class="msg_text">{{bug_report[2]}}</div>
+
+                <div class="checkbox_zone"><input type="checkbox" name="message" value="{{bug_report[0]}}"></div>
+
+            </li>
+        {% endfor %}
+
+
+
+        </ul>
+
+    </div>
+
+
+    <div class="list_div" id="Inconviniences">
+
+        <div class="list_title">Inconvinience</div>
+
+        <ul class="messages_list">
+
+            {% for inconvinience in inconviniences %}
+
+            <li class="common_box message">
+
+                <div class="username">{{inconvinience[0]}}:</div>
+
+                <div class="msg_text">{{inconvinience[2]}}</div>
+
+                <div class="checkbox_zone"><input type="checkbox" name="message" value="{{inconvinience[0]}}"></div>
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+
+    <div class="list_div" id="Suggestions">
+
+        <div class="list_title">Suggestions</div>
+
+        <ul class="messages_list">
+
+            {% for suggestion in suggestions %}
+
+            <li class="common_box message">
+
+                <div class="username">{{suggestion[0]}}:</div>
+
+                <div class="msg_text">{{suggestion[2]}}</div>
+
+                <div class="checkbox_zone"><input type="checkbox" name="message" value="{{suggestion[0]}}"></div>
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
