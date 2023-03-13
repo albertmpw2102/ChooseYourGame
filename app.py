@@ -5,16 +5,15 @@ import sqlite3, requests, json
 app.secret_key = 'LOL_SECRET_KEY'
 
 #NOTES
-#IF NOT MUCH TIME LEFT AND USING API IS TOO COMPLICATED, INSERT 7-10 GAMES YOURSELF AND WORK WITH IT
 
 #   To do list:
 
+#   Reccomendation algorithm
+#   Use dictionaries instead of oop
+#   Add libraries
 #   Theme selection
-#   Add comments to code
 #   Fix compatibility with other resolutions
 
-
-#   Make the back and forward browser buttons usable
 #   Differentiate between developer and user
 #   Tidy up code
 #   Add a loading circle when search function is executed
@@ -38,9 +37,9 @@ class game_obj:
             self.screenshots = screenshots
             self.image = image
 
-games = []
-game_global = None
-index = 0
+games = [] #global array of games to be used across different functions
+game = None #global game variable
+index = 0 #global index of the game user clicked on, so it does not reset to null when user backtracks
 
 def search(name_entered):
     global games
@@ -284,12 +283,35 @@ def addition_to_wishlist():
                         VALUES (?,?,?)""", (game.id, game.title, game.image))
         con.commit()
 
+    # RECOMMENDATION ALGORITHM SUMMARY: when interest test is submited, set all genres chosen to 100% or very high
+    # after adding other games to wishlist, increase the 'interest_percentage' by 25, decrease other genres by 10-15. Other values can be used as long as decrease value is less than increase value
+
     cur.execute(""" INSERT INTO wishlist (username, game_id)
                     VALUES (?,?)""", (session['user'], game.id))
+    con.commit()
+
+    genres_toExclude = ""
+    tags_toExclude = ""
+
+    for genre in game.genres:
+        cur.execute(""" UPDATE userGenres SET interest_percent=interest_percent + 30 WHERE username=? AND genre_name=?""", (session['user'], genre))
+        con.commit()
+        genres_toExclude = genres_toExclude + " OR genre_name <> '"+str(genre)+"'"
+
+    for tag in game.tags:
+        cur.execute(""" UPDATE userTags SET interest_percent=interest_percent + 30 WHERE username=? AND tag_name=?""", (session['user'], tag))
+        con.commit()
+        tags_toExclude = tags_toExclude + " OR tag_name <> '"+str(tag)+"'"
+    #errors: when switching from database
+
+    cur.execute(""" UPDATE userGenres SET interest_percent = interest_percent - 10 WHERE username=?""" + genres_toExclude, (session['user'],))
+    con.commit()
+    cur.execute(""" UPDATE userTags SET interest_percent = interest_percent - 10 WHERE username=?""" + tags_toExclude, (session['user'],))
     con.commit()
     con.close()
 
     return redirect(url_for('game'))
+    #return """ UPDATE userGenres SET interest_percent = interest_percent - 10 WHERE username=?""" + genres_toExclude
 
 
 # @app.route('/game', methods=['GET'])
@@ -465,27 +487,56 @@ def message_board():
 @app.route('/interest_test')
 def interest_test():
 
-    request_genres = requests.get("https://api.rawg.io/api/genres?key=fe9de1fd1c1f4b078881a31bb2971169&page_size=100")
-    request_tags = requests.get("https://api.rawg.io/api/tags?key=fe9de1fd1c1f4b078881a31bb2971169&page_size=100")
+    # request_genres = requests.get("https://api.rawg.io/api/genres?key=fe9de1fd1c1f4b078881a31bb2971169&page_size=100")
+    # request_tags = requests.get("https://api.rawg.io/api/tags?key=fe9de1fd1c1f4b078881a31bb2971169&page_size=100")
 
-    genres_file = request_genres.json()
-    genres = [None] * len(genres_file['results'])
+    # genres_file = request_genres.json()
+    # genres = [None] * len(genres_file['results'])
 
-    tags_file = request_tags.json()
-    tags = [None] * len(tags_file['results'])
+    # tags_file = request_tags.json()
+    # tags = [None] * len(tags_file['results'])
 
 
-    for x in range(len(genres_file['results'])):
-        genres[x] = genres_file['results'][x]['name']
-    for x in range(len(tags_file['results'])):
-        tags[x] = tags_file['results'][x]['name']
+    # for x in range(len(genres_file['results'])):
+    #     genres[x] = genres_file['results'][x]['name']
+    # for x in range(len(tags_file['results'])):
+    #     tags[x] = tags_file['results'][x]['name']
+
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+
+    cur.execute(""" SELECT * FROM genres """)
+    genres = cur.fetchall()
+    cur.execute(""" SELECT * FROM tags """)
+    tags = cur.fetchall()
+
 
     return render_template('interest_test.html', genres=genres, tags=tags)
 
 @app.route('/save_genres', methods=['POST'])
 def save_gernes():
-    genres = request.form.getlist('genre')
-    tags = request.form.getlist('tag')
+    genres_selected = request.form.getlist('genre')
+    tags_selected = request.form.getlist('tag')
+
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+
+    cur.execute("""UPDATE userGenres SET interest_percent=0 WHERE username=?""", (session['user'],))
+    con.commit()
+    for genre in genres_selected:
+        cur.execute("""UPDATE userGenres SET interest_percent=100 WHERE username=? AND genre_name=?""", (session['user'], genre))
+        con.commit()
+
+    cur.execute("""UPDATE userTags SET interest_percent=0 WHERE username=?""", (session['user'],))
+    con.commit()
+    for tag in tags_selected:
+        cur.execute("""UPDATE userTags SET interest_percent=100 WHERE username=? AND tag_name=?""", (session['user'], tag))
+        con.commit()
+
+    return redirect(url_for('home'))
+
+
+
 
 
 
@@ -867,8 +918,8 @@ def see_userTags():
     con = sqlite3.connect('userdata.db')
     cur = con.cursor()
     cur.execute("""
-                SELECT * FROM userTags;
-        """)
+                SELECT * FROM userTags WHERE username=?
+        """, (session['user'],))
     rows = cur.fetchall()
     return str(rows)
 
@@ -877,8 +928,8 @@ def see_userGenres():
     con = sqlite3.connect('userdata.db')
     cur = con.cursor()
     cur.execute("""
-                SELECT * FROM userGenres;
-        """)
+                SELECT * FROM userGenres WHERE username=?
+        """, (session['user'],))
     rows = cur.fetchall()
     return str(rows)
 
@@ -994,4 +1045,4 @@ def clear_games():
     return 'games cleared'
 
 
-#hello
+#spasibo
